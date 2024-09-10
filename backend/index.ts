@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
   console.log(req);
   res.send("hello world");
 });
-
+// get ALL books
 app.get("/books", (req, res) => {
   BookModel.find({})
     .then((books) =>
@@ -19,6 +19,17 @@ app.get("/books", (req, res) => {
         data: books,
       })
     )
+    .catch((err) => {
+      console.log(err.message);
+      res.status(500).send(err.message);
+    });
+});
+// get ONE book
+app.get("/books/:id", (req, res) => {
+  const { id } = req.params;
+
+  BookModel.findById(id)
+    .then((b) => res.status(200).json(b))
     .catch((err) => {
       console.log(err.message);
       res.status(500).send(err.message);
