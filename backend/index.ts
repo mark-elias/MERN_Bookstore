@@ -5,10 +5,24 @@ import { BookModel, IBook } from "./models/book";
 
 const app = express();
 app.use(express.json());
-//===========================
+//=======================================
 app.get("/", (req, res) => {
   console.log(req);
   res.send("hello world");
+});
+
+app.get("/books", (req, res) => {
+  BookModel.find({})
+    .then((books) =>
+      res.status(200).json({
+        count: books.length,
+        data: books,
+      })
+    )
+    .catch((err) => {
+      console.log(err.message);
+      res.status(500).send(err.message);
+    });
 });
 
 app.post("/books", (req, res) => {
@@ -30,12 +44,12 @@ app.post("/books", (req, res) => {
     .then((savedBook) => res.status(201).send(savedBook))
     .catch((err) => {
       // Handle errors, such as validation errors
-      res.status(400).json({ message: err.message });
-      console.log("holyyyy");
+      console.log(err.message);
+      res.status(400).send(err.message);
     });
 });
 
-//=============================
+//================================================
 
 mongoose
   .connect(MONGO_DB_URL)
