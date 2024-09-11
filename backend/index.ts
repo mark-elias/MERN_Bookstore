@@ -1,13 +1,27 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { PORT, MONGO_DB_URL } from "./config";
 import mongoose from "mongoose";
 import { BookModel, IBook } from "./models/book";
+import Joi from "joi";
 
 const app = express();
 app.use(express.json());
-//=======================================
-app.get("/", (req, res) => {
-  console.log(req);
+// ====== Joi Validation ==========================
+// make Joi schema using Book INTERFACE
+// for creating/Post
+const createBookSchema = Joi.object<IBook>({
+  title: Joi.string().required(),
+  author: Joi.string().required(),
+  publishYear: Joi.number().required(),
+});
+//
+const updateBookSchema = Joi.object<IBook>({
+  title: Joi.string().optional(),
+  author: Joi.string().optional(),
+  publishYear: Joi.number().optional(),
+}).min(1); // Ensure at least one field is being updated
+//======= Endpoints =======================
+app.get("/", (req: Request, res: Response) => {
   res.send("hello world");
 });
 // get ALL books
@@ -35,8 +49,16 @@ app.get("/books/:id", (req, res) => {
       res.status(500).send(err.message);
     });
 });
-
+// Add a book
 app.post("/books", (req, res) => {
+  // Validate request body against the Joi schema
+  const { error } = createBookSchema.validate(req.body);
+  if (error) {
+    return res
+      .status(400)
+      .send(`Validation error: ${error.details[0].message}`);
+  }
+
   // make a new object
   // get req.body values for object
   const newBook: IBook = {
@@ -58,6 +80,30 @@ app.post("/books", (req, res) => {
       console.log(err.message);
       res.status(400).send(err.message);
     });
+});
+// Update a single book
+app.put("/books/:id", (req, res) => {
+  const { id } = req.params;
+
+  // Validate request body against the Joi schema
+  const { error } = updateBookSchema.validate(req.body);
+  if (error) {
+    return res
+      .status(400)
+      .send(`Validation error: ${error.details[0].message}`);
+  }
+
+  BookModel.findByIdAndUpdate(id, req.body)
+    .then((result) => {
+      console.log(result);
+      if (!result) {
+        return res.status(404).send("Book not found");
+      } else if (!req.body) {
+        return res.status(404).send("You didnt send the correct info");
+      }
+      res.status(200).send("Book updated succesfully");
+    })
+    .catch((err) => res.status(500).send(err.message));
 });
 
 //================================================
