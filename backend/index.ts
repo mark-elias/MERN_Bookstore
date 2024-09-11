@@ -25,7 +25,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("hello world");
 });
 // get ALL books
-app.get("/books", (req, res) => {
+app.get("/books", (req: Request, res: Response) => {
   BookModel.find({})
     .then((books) =>
       res.status(200).json({
@@ -39,18 +39,23 @@ app.get("/books", (req, res) => {
     });
 });
 // get ONE book
-app.get("/books/:id", (req, res) => {
+app.get("/books/:id", (req: Request, res: Response) => {
   const { id } = req.params;
 
   BookModel.findById(id)
-    .then((b) => res.status(200).json(b))
+    .then((book) => {
+      if (!book) {
+        return res.status(404).send("book not found");
+      }
+      res.status(200).json(book);
+    })
     .catch((err) => {
       console.log(err.message);
       res.status(500).send(err.message);
     });
 });
 // Add a book
-app.post("/books", (req, res) => {
+app.post("/books", (req: Request, res: Response) => {
   // Validate request body against the Joi schema
   const { error } = createBookSchema.validate(req.body);
   if (error) {
@@ -74,7 +79,12 @@ app.post("/books", (req, res) => {
   //save the book object/instance to the Database
   book
     .save()
-    .then((savedBook) => res.status(201).send(savedBook))
+    .then((savedBook) =>
+      res.status(201).json({
+        message: "The book was added to the database",
+        data: savedBook,
+      })
+    )
     .catch((err) => {
       // Handle errors, such as validation errors
       console.log(err.message);
@@ -82,7 +92,7 @@ app.post("/books", (req, res) => {
     });
 });
 // Update a single book
-app.put("/books/:id", (req, res) => {
+app.put("/books/:id", (req: Request, res: Response) => {
   const { id } = req.params;
 
   // Validate request body against the Joi schema
@@ -94,18 +104,33 @@ app.put("/books/:id", (req, res) => {
   }
 
   BookModel.findByIdAndUpdate(id, req.body)
-    .then((result) => {
-      console.log(result);
-      if (!result) {
+    .then((book) => {
+      if (!book) {
         return res.status(404).send("Book not found");
       } else if (!req.body) {
-        return res.status(404).send("You didnt send the correct info");
+        return res.status(400).send("You didnt send the correct info");
       }
-      res.status(200).send("Book updated succesfully");
+      res.status(200).json({
+        message: "Book was updated successfuly",
+        book: book,
+      });
     })
     .catch((err) => res.status(500).send(err.message));
 });
-
+// router for deleting a book
+app.delete("/books/:id", (req: Request, res: Response) => {
+  const { id } = req.params;
+  BookModel.findByIdAndDelete(id)
+    .then((book) => {
+      if (!book) {
+        return res.status(404).send("Book not found");
+      }
+      res
+        .status(200)
+        .json({ message: "Book deleted successfulyy", book: book });
+    })
+    .catch((err) => res.status(500).send(err.message));
+});
 //================================================
 
 mongoose
