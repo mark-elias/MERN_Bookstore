@@ -2,9 +2,11 @@ import express, { Request, Response } from "express";
 import { PORT, MONGO_DB_URL } from "./config";
 import mongoose from "mongoose";
 import booksRoute from "./routes/booksRoute";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 app.use("/books", booksRoute);
 //================================================
 app.get("/", (req: Request, res: Response) => {
