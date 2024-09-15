@@ -4,9 +4,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        customYellow: "#FAFF7F",
-        customPurple: "#91A6FF",
-        customPink: "#FF88DC",
+        customDarkPurple: "#34252F",
+        customDarkGreen: "#3B5249",
+        customGreen: "#519872",
       },
     },
   },

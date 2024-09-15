@@ -19,14 +19,14 @@ function HomePage() {
       <h1>HomePage</h1>
       <div className="flex justify-end mb-4">
         <Link to={`/books/create`}>
-          <IoIosAddCircle className="text-[40px] text-zinc-600" />
+          <IoIosAddCircle className="text-[40px] text-customGreen" />
         </Link>
       </div>
       <div className="flex justify-center">
         <div className="overflow-x-auto bg-white shadow-xl rounded-xl w-full md:w-[600px]">
           <table className="table w-full md:w-[600px]">
             <thead>
-              <tr className="text-left bg-zinc-300">
+              <tr className="text-left bg-customDarkGreen">
                 <th></th>
                 <th>Title</th>
                 <th>Author</th>
@@ -36,26 +36,26 @@ function HomePage() {
                 <th></th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="text-black">
               {books?.map((b, index) => (
-                <tr key={b._id} className="odd:bg-zinc-100">
+                <tr key={b._id} className="odd:bg-zinc-200">
                   <th>{index + 1}</th>
                   <td>{b.title}</td>
                   <td>{b.author}</td>
                   <td>{b.publishYear}</td>
                   <td className="px-2">
                     <Link to={`/books/details/${b._id}`}>
-                      <IoInformationCircle className="text-2xl text-zinc-600" />
+                      <IoInformationCircle className="text-2xl text-customGreen" />
                     </Link>
                   </td>
                   <td className="px-2">
                     <Link to={`/books/edit/${b._id}`}>
-                      <MdModeEdit className="text-2xl text-zinc-600" />
+                      <MdModeEdit className="text-2xl text-customGreen" />
                     </Link>
                   </td>
                   <td className="px-2">
                     <Link to={`/books/delete/${b._id}`}>
-                      <FaDeleteLeft className="text-2xl text-zinc-600" />
+                      <FaDeleteLeft className="text-2xl text-customGreen" />
                     </Link>
                   </td>
                 </tr>

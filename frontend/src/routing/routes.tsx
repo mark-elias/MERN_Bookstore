@@ -5,13 +5,64 @@ import ShowBook from "../pages/ShowBook";
 import CreateBook from "../pages/CreateBook";
 import DeleteBook from "../pages/DeleteBook";
 import EditBook from "../pages/EditBook";
+import NavBar from "../components/NavBar";
 
 const router = createBrowserRouter([
-  { path: "/", element: <HomePage /> },
-  { path: "/books/details/:id", element: <ShowBook /> },
-  { path: "/books/create", element: <CreateBook /> },
-  { path: "/books/delete/:id", element: <DeleteBook /> },
-  { path: "/books/edit/:id", element: <EditBook /> },
+  {
+    path: "/",
+    element: (
+      <>
+        <NavBar></NavBar>
+        <div className="p-1 md:p-5">
+          <HomePage></HomePage>
+        </div>
+      </>
+    ),
+  },
+  {
+    path: "/books/details/:id",
+    element: (
+      <>
+        <NavBar></NavBar>
+        <div className="p-1 md:p-5">
+          <ShowBook />
+        </div>
+      </>
+    ),
+  },
+  {
+    path: "/books/create",
+    element: (
+      <>
+        <NavBar></NavBar>
+        <div className="p-1 md:p-5">
+          <CreateBook />
+        </div>
+      </>
+    ),
+  },
+  {
+    path: "/books/delete/:id",
+    element: (
+      <>
+        <NavBar></NavBar>
+        <div className="p-1 md:p-5">
+          <DeleteBook />
+        </div>
+      </>
+    ),
+  },
+  {
+    path: "/books/edit/:id",
+    element: (
+      <>
+        <NavBar></NavBar>
+        <div className="p-1 md:p-5">
+          <EditBook />
+        </div>
+      </>
+    ),
+  },
 ]);
 
 export default router;

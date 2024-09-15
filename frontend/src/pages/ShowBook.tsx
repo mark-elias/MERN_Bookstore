@@ -25,16 +25,28 @@ function BookDetailsPage() {
     return <span className="loading loading-ring loading-lg"></span>;
   if (error) return <div>Error: {error.message}</div>;
 
+  // Debugging output to check if 'created' and 'updated' are returned
+  console.log("Book data:", book);
+  console.log("Created:", book?.createdAt);
+  console.log("Updated:", book?.updatedAt);
+  // Format the 'createdAt' and 'updatedAt' date fields
+  const formattedCreated = book?.createdAt
+    ? new Date(book.createdAt).toLocaleDateString()
+    : "N/A";
+  const formattedUpdated = book?.updatedAt
+    ? new Date(book.updatedAt).toLocaleDateString()
+    : "N/A";
+
   return (
     <div>
       <h1>Book Details</h1>
-      <ul>
-        <li>{book?._id}</li>
-        <li>{book?.title}</li>
-        <li>{book?.author}</li>
-        <li>{book?.publishYear}</li>
-        <li>{book?.created}</li>
-        <li>{book?.updated}</li>
+      <ul className="bg-customGreen w-[400px] p-2 rounded-2xl shadow-2xl">
+        <li>ID: {book?._id}</li>
+        <li>Title: {book?.title}</li>
+        <li>Author: {book?.author}</li>
+        <li>Publish Year: {book?.publishYear}</li>
+        <li>Created: {formattedCreated}</li>
+        <li>Updated: {formattedUpdated}</li>
       </ul>
     </div>
   );

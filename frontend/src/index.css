@@ -4,6 +4,6 @@
 
 @layer base{
     body{
-        @apply p-1 md:p-5 bg-zinc-50
+        @apply bg-customDarkPurple text-white
     }
 }

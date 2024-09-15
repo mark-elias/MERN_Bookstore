@@ -6,8 +6,8 @@ export interface Book {
   title: string;
   author: string;
   publishYear: number;
-  created: string;
-  updated: string;
+  createdAt: string; // Changed to match the actual field name
+  updatedAt: string; // Changed to match the actual field name
 }
 export interface BooksResponse {
   count: number;
