@@ -1,4 +1,4 @@
-import useBooks from "../hooks/useBooks";
+import useBooks, { Book } from "../hooks/useBooks";
 import { IoInformationCircle } from "react-icons/io5";
 import { FaDeleteLeft } from "react-icons/fa6";
 import { MdModeEdit } from "react-icons/md";
@@ -6,9 +6,12 @@ import { IoIosAddCircle } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 function HomePage() {
-  const { data: books, error, isLoading } = useBooks();
+  const { data, error, isLoading } = useBooks();
+  const count = data?.count;
+  const books = data?.data;
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return <span className="loading loading-ring loading-lg"></span>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (

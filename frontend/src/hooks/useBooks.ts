@@ -1,20 +1,30 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-interface Book {
-  _id: number;
+export interface Book {
+  _id: string; // Changed to string to match MongoDB ObjectId
   title: string;
   author: string;
   publishYear: number;
+  created: string;
+  updated: string;
+}
+export interface BooksResponse {
+  count: number;
+  data: Book[];
 }
 
-function useBooks() {
-  return useQuery<Book[], Error>({
-    queryKey: ["books"],
+function useBooks(id?: string) {
+  return useQuery<BooksResponse, Error>({
+    queryKey: id ? ["book", id] : ["books"],
     queryFn: () =>
       axios
-        .get<{ count: number; data: Book[] }>("http://localhost:5555/books")
-        .then((res) => res.data.data),
+        .get<BooksResponse>("http://localhost:5555/books", {
+          params: {
+            id: id,
+          },
+        })
+        .then((res) => res.data),
     staleTime: 10 * 1000,
   });
 }
