@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <NavBar></NavBar>
-        <div className="p-1 md:p-5">
+        <div className="p-2 md:p-5">
           <HomePage></HomePage>
         </div>
       </>
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <NavBar></NavBar>
-        <div className="p-1 md:p-5">
+        <div className="p-2 md:p-5">
           <ShowBook />
         </div>
       </>
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <NavBar></NavBar>
-        <div className="p-1 md:p-5">
+        <div className="p-2 md:p-5">
           <CreateBook />
         </div>
       </>
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <NavBar></NavBar>
-        <div className="p-1 md:p-5">
+        <div className="p-2 md:p-5">
           <DeleteBook />
         </div>
       </>
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <NavBar></NavBar>
-        <div className="p-1 md:p-5">
+        <div className="p-2 md:p-5">
           <EditBook />
         </div>
       </>

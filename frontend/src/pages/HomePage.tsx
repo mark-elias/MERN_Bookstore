@@ -19,17 +19,16 @@ function HomePage() {
 
   return (
     <div>
-      <h1>HomePage</h1>
       <div className="flex justify-end mb-4">
         <Link to={`/books/create`}>
-          <IoIosAddCircle className="text-[40px] text-customGreen" />
+          <IoIosAddCircle className="text-[45px]" />
         </Link>
       </div>
       <div className="flex justify-center">
-        <div className="overflow-x-auto bg-white shadow-xl rounded-xl w-full md:w-[600px]">
+        <div className="overflow-x-auto bg-white shadow-xl rounded w-full md:w-[600px]">
           <table className="table w-full md:w-[600px]">
             <thead>
-              <tr className="text-left bg-customDarkGreen">
+              <tr className="text-left bg-customGreen h-[40px]">
                 <th></th>
                 <th>Title</th>
                 <th>Author</th>
@@ -41,24 +40,24 @@ function HomePage() {
             </thead>
             <tbody className="text-black">
               {books?.map((b, index) => (
-                <tr key={b._id} className="odd:bg-zinc-200">
-                  <th>{index + 1}</th>
+                <tr key={b._id} className="odd:bg-zinc-200 h-[35px]">
+                  <th className="w-[30px]">{index + 1}</th>
                   <td>{b.title}</td>
                   <td>{b.author}</td>
                   <td>{b.publishYear}</td>
-                  <td className="px-2">
+                  <td className="px-1">
                     <Link to={`/books/details/${b._id}`}>
-                      <IoInformationCircle className="text-2xl text-customGreen" />
+                      <IoInformationCircle className="text-2xl text-zinc-700" />
                     </Link>
                   </td>
-                  <td className="px-2">
+                  <td className="px-1">
                     <Link to={`/books/edit/${b._id}`}>
-                      <MdModeEdit className="text-2xl text-customGreen" />
+                      <MdModeEdit className="text-2xl text-zinc-700" />
                     </Link>
                   </td>
-                  <td className="px-2">
+                  <td className="px-1">
                     <Link to={`/books/delete/${b._id}`}>
-                      <FaDeleteLeft className="text-2xl text-customGreen" />
+                      <FaDeleteLeft className="text-2xl text-zinc-700" />
                     </Link>
                   </td>
                 </tr>

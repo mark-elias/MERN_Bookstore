@@ -4,10 +4,10 @@ import { FaBookDead } from "react-icons/fa";
 
 function NavBar() {
   return (
-    <nav className="bg-customDarkGreen">
-      <div>
-        <Link to="/" className="text-2xl flex gap-x-2 p-3">
-          <FaBookDead></FaBookDead>
+    <nav className="bg-customGreen p-3 shadow-2xl">
+      <div className="inline-block">
+        <Link to="/" className="text-2xl flex items-center gap-x-2">
+          <FaBookDead />
           MERN Bookstore Project
         </Link>
       </div>

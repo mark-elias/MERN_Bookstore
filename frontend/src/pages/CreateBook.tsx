@@ -1,6 +1,9 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm } from "react-hook-form";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { IoArrowBackCircle } from "react-icons/io5";
 
 const schema = z.object({
   title: z.string().min(3),
@@ -19,16 +22,26 @@ function CreateBook() {
     resolver: zodResolver(schema),
   });
 
+  const navigate = useNavigate();
+
   function onSubmit(data: FieldValues) {
     console.log(data);
+    axios
+      .post("http://localhost:5555/books", data)
+      .then(() => navigate("/"))
+      .catch((err) => console.log(err.message));
   }
 
   return (
     <>
-      <div>CreateBook</div>
+      <div className="mb-4">
+        <Link to="/">
+          <IoArrowBackCircle className="text-[45px]" />
+        </Link>
+      </div>
       <div className="flex justify-center">
         <form
-          className="bg-white text-black p-3 flex flex-col gap-5 rounded shadow-2xl w-[400px]"
+          className="bg-white text-black p-3 flex flex-col gap-5 rounded shadow-2xl w-[500px]"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="">
@@ -76,7 +89,7 @@ function CreateBook() {
           <div>
             <button
               type="submit"
-              className="bg-customGreen text-white px-2 py-1 rounded"
+              className="bg-customGreen text-white px-2 py-1 rounded text-lg"
             >
               Submit
             </button>
