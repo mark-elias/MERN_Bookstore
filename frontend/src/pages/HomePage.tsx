@@ -1,8 +1,8 @@
-import useBooks, { Book } from "../hooks/useBooks";
+import useBooks from "../hooks/useBooks";
 import { IoInformationCircle } from "react-icons/io5";
-import { FaDeleteLeft } from "react-icons/fa6";
 import { MdModeEdit } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 function HomePage() {
@@ -57,7 +57,7 @@ function HomePage() {
                   </td>
                   <td className="px-1">
                     <Link to={`/books/delete/${b._id}`}>
-                      <FaDeleteLeft className="text-2xl text-zinc-700" />
+                      <MdDelete className="text-2xl text-zinc-700" />
                     </Link>
                   </td>
                 </tr>
