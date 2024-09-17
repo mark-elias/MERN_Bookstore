@@ -6,10 +6,13 @@ import { IoIosAddCircle } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 function HomePage() {
-  const { data, error, isLoading } = useBooks();
-  const count = data?.count;
-  const books = data?.data;
+  const { data: books, error, isLoading } = useBooks();
+  // const count = data?.count;
+  // const books = data?.data;
 
+  {
+    console.log(books);
+  }
   if (isLoading)
     return <span className="loading loading-ring loading-lg"></span>;
   if (error) return <div>Error: {error.message}</div>;

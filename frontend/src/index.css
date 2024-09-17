@@ -4,6 +4,11 @@
 
 @layer base{
     body{
-        @apply bg-customDarkPurple text-white
+        @apply bg-customDarkPurple text-white font-medium
+    }
+}
+@layer components{
+    .error-message{
+        @apply text-red-500
     }
 }

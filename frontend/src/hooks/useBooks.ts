@@ -9,17 +9,21 @@ export interface Book {
   createdAt: string; // Changed to match the actual field name
   updatedAt: string; // Changed to match the actual field name
 }
-export interface BooksResponse {
-  count: number;
-  data: Book[];
-}
+// export interface BooksResponse {
+//   // count: number;
+//   data: Book[];
+// }
 
 function useBooks(id?: string) {
-  return useQuery<BooksResponse, Error>({
+  const endpoint = id
+    ? `http://localhost:5555/books/${id}`
+    : `http://localhost:5555/books`;
+
+  return useQuery<Book[], Error>({
     queryKey: id ? ["book", id] : ["books"],
     queryFn: () =>
       axios
-        .get<BooksResponse>("http://localhost:5555/books", {
+        .get<Book[]>("http://localhost:5555/books", {
           params: {
             id: id,
           },

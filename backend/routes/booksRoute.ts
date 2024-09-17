@@ -23,10 +23,13 @@ const updateBookSchema = Joi.object<IBook>({
 router.get("/", (req: Request, res: Response) => {
   BookModel.find({})
     .then((books) =>
-      res.status(200).json({
-        count: books.length,
-        data: books,
-      })
+      res.status(200).json(
+        books
+        // {
+        // count: books.length,
+        // data: books,
+        // }
+      )
     )
     .catch((err) => {
       console.log(err.message);
