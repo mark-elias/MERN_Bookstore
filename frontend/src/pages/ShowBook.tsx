@@ -44,7 +44,7 @@ function BookDetailsPage() {
     <div>
       <div className="mb-4">
         <Link to="/">
-          <IoArrowBackCircle className="text-[45px]" />
+          <IoArrowBackCircle className="text-[45px] hover:scale-110 duration-200 ease-in-out" />
         </Link>
       </div>
       <div className="flex justify-center">

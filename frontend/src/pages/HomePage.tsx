@@ -21,7 +21,7 @@ function HomePage() {
     <div>
       <div className="flex justify-end mb-4">
         <Link to={`/books/create`}>
-          <IoIosAddCircle className="text-[45px]" />
+          <IoIosAddCircle className="text-[45px] hover:scale-110 duration-200 ease-in-out" />
         </Link>
       </div>
       <div className="flex justify-center">
@@ -47,17 +47,17 @@ function HomePage() {
                   <td>{b.publishYear}</td>
                   <td className="px-1">
                     <Link to={`/books/details/${b._id}`}>
-                      <IoInformationCircle className="text-2xl text-zinc-700" />
+                      <IoInformationCircle className="text-2xl text-zinc-700 hover:scale-110 duration-200 ease-in-out" />
                     </Link>
                   </td>
                   <td className="px-1">
                     <Link to={`/books/edit/${b._id}`}>
-                      <MdModeEdit className="text-2xl text-zinc-700" />
+                      <MdModeEdit className="text-2xl text-zinc-700 hover:scale-110 duration-200 ease-in-out" />
                     </Link>
                   </td>
                   <td className="px-1">
                     <Link to={`/books/delete/${b._id}`}>
-                      <MdDelete className="text-2xl text-zinc-700" />
+                      <MdDelete className="text-2xl text-zinc-700 hover:scale-110 duration-200 ease-in-out" />
                     </Link>
                   </td>
                 </tr>

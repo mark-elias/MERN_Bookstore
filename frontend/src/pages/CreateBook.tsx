@@ -44,7 +44,7 @@ function CreateBook() {
     <>
       <div className="mb-4">
         <Link to="/">
-          <IoArrowBackCircle className="text-[45px]" />
+          <IoArrowBackCircle className="text-[45px] hover:scale-110 duration-200 ease-in-out" />
         </Link>
       </div>
       <div className="flex justify-center">
@@ -60,7 +60,7 @@ function CreateBook() {
               id="title"
               type="text"
               {...register("title")}
-              className="block ring-1 ring-zinc-300 w-full rounded px-3 py-2"
+              className="custom-input"
             ></input>
             {errors.title && (
               <p className="error-message">{errors.title.message}</p>
@@ -74,7 +74,7 @@ function CreateBook() {
               id="author"
               type="text"
               {...register("author")}
-              className="block ring-1 ring-zinc-300 w-full rounded px-3 py-2"
+              className="custom-input"
             ></input>
             {errors.author && (
               <p className="error-message">{errors.author.message}</p>
@@ -88,7 +88,7 @@ function CreateBook() {
               id="publishYear"
               type="number"
               {...register("publishYear", { valueAsNumber: true })}
-              className="block ring-1 ring-zinc-300 w-full rounded px-3 py-2"
+              className="custom-input"
             ></input>
             {errors.publishYear && (
               <p className="error-message">{errors.publishYear.message}</p>
@@ -97,7 +97,7 @@ function CreateBook() {
           <div>
             <button
               type="submit"
-              className="bg-customGreen text-white px-2 py-1 rounded text-lg"
+              className="bg-customGreen text-white px-2 py-1 rounded hover:scale-105 duration-200 ease-in-out"
             >
               Submit
             </button>
