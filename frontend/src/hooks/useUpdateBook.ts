@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FormData } from "../pages/EditBook";
+import apiClient from "../services/api-client";
 
 function useUpdateBook() {
   const navigate = useNavigate();
@@ -14,10 +14,7 @@ function useUpdateBook() {
     }: {
       id: string | undefined;
       formData: FormData;
-    }) =>
-      axios
-        .put(`http://localhost:5555/books/${id}`, formData)
-        .then((res) => res.data),
+    }) => apiClient.put(`/${id}`, formData).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["books"] });
       navigate("/");
