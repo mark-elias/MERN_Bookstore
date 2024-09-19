@@ -13,7 +13,7 @@ function useBooks(id?: string) {
         : axios
             .get<Book[]>("http://localhost:5555/books")
             .then((res) => res.data), // Fetch all books
-    staleTime: 10 * 1000, // Adjust as needed
+    staleTime: 1 * 60 * 1000, // Adjust as needed
   });
 }
 

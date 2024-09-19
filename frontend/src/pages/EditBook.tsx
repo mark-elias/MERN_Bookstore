@@ -1,13 +1,11 @@
 import { Link, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react"; // Import useEffect
-import { useNavigate } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useUpdateBook from "../hooks/useUpdateBook";
+import useGetBooks from "../hooks/useGetBooks";
+import { useEffect } from "react";
 
 const schema = z.object({
   title: z.string().min(3),
@@ -15,63 +13,31 @@ const schema = z.object({
   publishYear: z.number().min(1000),
 });
 
-type FormData = z.infer<typeof schema>;
-
-type Book = {
-  id: string;
-  title: string;
-  author: string;
-  publishYear: number;
-};
+export type FormData = z.infer<typeof schema>;
 
 function EditBook() {
+  const { id } = useParams<{ id: string }>();
+
   const {
     register,
     handleSubmit,
-    setValue, // For setting default form values
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  const { id } = useParams<{ id: string }>();
-
   // Fetch the book data with useQuery
-  const { data: book, error, isLoading } = useQuery<Book, Error>({
-    queryKey: ["book", id],
-    queryFn: () =>
-      axios.get<Book>(`http://localhost:5555/books/${id}`).then((res) => res.data),
-    staleTime: 10 * 1000,
-  });
+  // const { data: book, error, isLoading } = useGetBooks(id);
 
-  // useEffect to set form values once book data is fetched
-  useEffect(() => {
-    if (book) {
-      setValue("title", book.title);
-      setValue("author", book.author);
-      setValue("publishYear", book.publishYear);
-    }
-  }, [book, setValue]); // Runs whenever book or setValue changes
-
-  if (isLoading) return <span className="loading loading-ring loading-lg"></span>;
-  if (error) return <div>Error: {error.message}</div>;
+  // if (isLoading) return <p>Loading...</p>;
+  // if (error) return <div>Error: {error.message}</div>;
 
   // Mutation to update the book
-  const updateBookMutation = useMutation({
-    mutationFn: (data: FormData) =>
-      axios.put(`http://localhost:5555/books/${id}`, data), // Ensure ID is used in the URL
-    onSuccess: () => {
-      queryClient.invalidateQueries(); // Invalidate the specific book's query
-      navigate("/");
-    },
-    onError: (err) => console.log(err.message),
-  });
+  const updateBookMutation = useUpdateBook();
 
   // Form submission handler
-  function onUpdate(data: FormData) {
-    updateBookMutation.mutate(data);
+  function onUpdate(formData: FormData) {
+    updateBookMutation.mutate({ id, formData });
   }
 
   return (
@@ -87,7 +53,9 @@ function EditBook() {
           onSubmit={handleSubmit(onUpdate)}
         >
           <div>
-            <label htmlFor="title" className="block">Title</label>
+            <label htmlFor="title" className="block">
+              Title
+            </label>
             <input
               id="title"
               type="text"
@@ -99,7 +67,9 @@ function EditBook() {
             )}
           </div>
           <div>
-            <label htmlFor="author" className="block">Author</label>
+            <label htmlFor="author" className="block">
+              Author
+            </label>
             <input
               id="author"
               type="text"
@@ -111,7 +81,9 @@ function EditBook() {
             )}
           </div>
           <div>
-            <label htmlFor="publishYear" className="block">Publish Year</label>
+            <label htmlFor="publishYear" className="block">
+              Publish Year
+            </label>
             <input
               id="publishYear"
               type="number"
