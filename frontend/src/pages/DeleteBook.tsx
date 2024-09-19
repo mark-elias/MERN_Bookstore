@@ -1,6 +1,7 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import useDeleteBook from "../hooks/useDeleteBook";
+import { IoArrowBackCircle } from "react-icons/io5";
 
 function DeleteBook() {
   // used for the mutation.mutate(id) function inside deleteHook
@@ -11,6 +12,11 @@ function DeleteBook() {
 
   return (
     <>
+      <div className="mb-4">
+        <Link to="/">
+          <IoArrowBackCircle className="text-[45px] hover:scale-110 duration-200 ease-in-out" />
+        </Link>
+      </div>
       <div className="flex justify-center">
         <div className="bg-white text-black text-center p-3 rounded w-[350px] shadow-2xl flex flex-col items-center gap-5">
           <h2 className="text-xl">Are you sure you want to delete?</h2>

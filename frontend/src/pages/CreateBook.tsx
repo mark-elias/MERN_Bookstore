@@ -1,10 +1,9 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FieldValues, useForm } from "react-hook-form";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { IoArrowBackCircle } from "react-icons/io5";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useCreateBook from "../hooks/useCreateBook";
 
 const schema = z.object({
   title: z.string().min(3),
@@ -23,21 +22,10 @@ function CreateBook() {
     resolver: zodResolver(schema),
   });
 
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  const createBookMutation = useCreateBook();
 
-  const createBookMutation = useMutation({
-    mutationFn: (data: FormData) =>
-      axios.post("http://localhost:5555/books", data),
-    onSuccess: () => {
-      queryClient.invalidateQueries();
-      navigate("/");
-    },
-    onError: (err) => console.log(err.message),
-  });
-
-  function onSubmit(data: FieldValues) {
-    createBookMutation.mutate(data as FormData);
+  function onSubmit(formData: FormData) {
+    createBookMutation.mutate({ formData });
   }
 
   return (
