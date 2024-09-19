@@ -1,21 +1,23 @@
-import useBooks from "../hooks/useBooks";
 import { IoInformationCircle } from "react-icons/io5";
 import { MdModeEdit } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
+import useGetBooks from "../hooks/useGetBooks";
 
 function HomePage() {
-  const { data: books, error, isLoading } = useBooks();
-  // const count = data?.count;
-  // const books = data?.data;
-
+  // const { data: books, error, isLoading } = useBooks(undefined);
+  const { data: books, error, isLoading } = useGetBooks(undefined);
   {
     console.log(books);
   }
-  if (isLoading)
-    return <span className="loading loading-ring loading-lg"></span>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (isLoading) return <p>Loading....</p>;
+  if (error) return <p className="error-message">Error: {error.message}</p>;
+
+  // Check if `books` is an array
+  if (!Array.isArray(books)) {
+    return <p>No books available</p>;
+  }
 
   return (
     <div>

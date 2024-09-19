@@ -1,38 +1,19 @@
 import { Link, useParams } from "react-router-dom";
-import useBooks, { Book } from "../hooks/useBooks";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { IoArrowBackCircle } from "react-icons/io5";
+import useGetBooks from "../hooks/useGetBooks";
 
 function BookDetailsPage() {
-  const { id } = useParams<{ id: string | undefined }>();
+  const { id } = useParams<{ id: string }>();
+  const { data: book, error, isLoading } = useGetBooks(id);
 
-  const {
-    data: book,
-    error,
-    isLoading,
-  } = useQuery<Book, Error>({
-    queryKey: ["book", id],
-    queryFn: () =>
-      axios
-        .get<Book>(`http://localhost:5555/books/${id}`)
-        .then((res) => res.data),
-    staleTime: 10 * 1000,
-  });
-
-  console.log(id);
-
-  // const { data: book, error, isLoading } = useBooks(id);
-
-  if (isLoading)
-    return <span className="loading loading-ring loading-lg"></span>;
+  if (isLoading) return <p>Loading...</p>;
   if (error) return <div>Error: {error.message}</div>;
 
-  // Debugging output to check if 'created' and 'updated' are returned
-  // console.log("Book data:", book);
-  // console.log("Created:", book?.createdAt);
-  // console.log("Updated:", book?.updatedAt);
-  // Format the 'createdAt' and 'updatedAt' date fields
+  // Check if `book` is an array or a single object
+  if (Array.isArray(book)) {
+    return <div>No book found</div>;
+  }
+
   const formattedCreated = book?.createdAt
     ? new Date(book.createdAt).toLocaleDateString()
     : "N/A";
