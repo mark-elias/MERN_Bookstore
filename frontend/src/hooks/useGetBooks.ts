@@ -7,8 +7,8 @@ function useBooks(id?: string) {
     queryKey: id ? ["book", id] : ["books"], // Dynamic query key based on whether `id` is provided
     queryFn: () =>
       id
-        ? apiClient.get<Book>(`/${id}`).then((res) => res.data) // Fetch a single book
-        : apiClient.get<Book[]>("/").then((res) => res.data), // Fetch all books
+        ? apiClient.get<Book>(`/books/${id}`).then((res) => res.data) // Fetch a single book
+        : apiClient.get<Book[]>("/books").then((res) => res.data), // Fetch all books
     staleTime: 1 * 60 * 1000, // Adjust as needed
   });
 }
