@@ -13,6 +13,11 @@ app.get("/", (req: Request, res: Response) => {
   res.send("hello world");
 });
 //========================================
+// Ensure MONGO_DB_URL is defined
+if (!MONGO_DB_URL) {
+  throw new Error("MONGO_DB_URL is not defined in the environment variables.");
+}
+
 mongoose
   .connect(MONGO_DB_URL)
   .then(() => {

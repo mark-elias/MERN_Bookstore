@@ -1,4 +1,7 @@
-export const PORT = 5555;
+require("dotenv").config();
 
-export const MONGO_DB_URL =
-  "mongodb+srv://mark7elias:BqmYj5eJhmoLpxz7@bookstore-mern.rfalp.mongodb.net/books-collection?retryWrites=true&w=majority&appName=bookstore-MERN";
+export const PORT = process.env.PORT || 5555;
+export const MONGO_DB_URL = process.env.MONGO_DB_URL;
+if (!MONGO_DB_URL) {
+  throw new Error("MONGO_DB_URL is not defined in environment variables.");
+}
