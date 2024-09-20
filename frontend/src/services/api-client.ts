@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://localhost:5555/books",
+  baseURL: "https://mern-bookstore-vm69.onrender.com",
 });
