@@ -12,12 +12,9 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use("/books", booksRoute_1.default);
-//================================================
 app.get("/", (req, res) => {
     res.send("hello world");
 });
-//========================================
-// Ensure MONGO_DB_URL is defined
 if (!config_1.MONGO_DB_URL) {
     throw new Error("MONGO_DB_URL is not defined in the environment variables.");
 }
