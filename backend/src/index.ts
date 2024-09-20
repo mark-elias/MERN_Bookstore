@@ -6,7 +6,11 @@ import cors from "cors";
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://mernbookstorefrontend.vercel.app/", // Replace with your actual Vercel frontend URL
+  })
+);
 app.use("/books", booksRoute);
 //================================================
 app.get("/", (req: Request, res: Response) => {
