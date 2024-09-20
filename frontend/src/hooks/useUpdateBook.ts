@@ -14,7 +14,7 @@ function useUpdateBook() {
     }: {
       id: string | undefined;
       formData: FormData;
-    }) => apiClient.put(`/${id}`, formData).then((res) => res.data),
+    }) => apiClient.put(`/books/${id}`, formData).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["books"] });
       navigate("/");

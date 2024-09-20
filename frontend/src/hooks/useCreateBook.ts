@@ -9,7 +9,7 @@ function useCreateBook() {
 
   return useMutation({
     mutationFn: ({ formData }: { formData: FormData }) =>
-      apiClient.post("/", formData).then((res) => res.data),
+      apiClient.post("/books", formData).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["books"] });
       navigate("/");

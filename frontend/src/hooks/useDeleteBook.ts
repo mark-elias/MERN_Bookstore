@@ -8,7 +8,7 @@ function useDeleteBook() {
 
   return useMutation({
     mutationFn: (id: string | undefined) =>
-      apiClient.delete(`/${id}`).then((res) => res.data),
+      apiClient.delete(`/books/${id}`).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["books"] });
       navigate("/");
